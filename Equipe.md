@@ -286,6 +286,7 @@
 9. **✅ Code** sur GitHub avec commits réguliers
 10. **✅ Démo rapide** (3-5 min) : rechercher agent → démarrer conversation → poser questions
 
+
 ---
 
 ## 🤖 Exemples d'Agents IA à créer
