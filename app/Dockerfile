@@ -13,3 +13,6 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 WORKDIR /var/www/html
+
+# Commande pour démarrer le serveur PHP intégré (accessible de l'extérieur)
+CMD ["bash", "-c", "cd /var/www/html/app && php -S 0.0.0.0:8000 -t public"]

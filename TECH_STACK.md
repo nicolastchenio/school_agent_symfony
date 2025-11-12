@@ -19,8 +19,8 @@
 - **Services** : PHP-FPM, MySQL, phpMyAdmin
 
 ### API IA
-- **Provider** : OpenAI API (ou Azure OpenAI)
-- **Modèle suggéré** : GPT-4 ou GPT-3.5-turbo
+- **Provider** : Grok API (xAI)
+- **Modèle suggéré** : grok-beta ou grok-2
 
 ---
 
@@ -142,23 +142,23 @@ app/
 
 ---
 
-## 🔌 Configuration API OpenAI
+## 🔌 Configuration API Grok (xAI)
 
 **.env** :
 ```env
-###> OpenAI ###
-OPENAI_API_KEY=sk-your-api-key-here
-OPENAI_API_URL=https://api.openai.com/v1/chat/completions
-OPENAI_MODEL=gpt-3.5-turbo
-###< OpenAI ###
+###> Grok API (xAI) ###
+GROK_API_KEY=xai-your-api-key-here
+GROK_API_URL=https://api.x.ai/v1/chat/completions
+GROK_MODEL=grok-beta
+###< Grok API ###
 ```
 
 **config/services.yaml** :
 ```yaml
 parameters:
-    openai_api_key: '%env(OPENAI_API_KEY)%'
-    openai_api_url: '%env(OPENAI_API_URL)%'
-    openai_model: '%env(OPENAI_MODEL)%'
+    grok_api_key: '%env(GROK_API_KEY)%'
+    grok_api_url: '%env(GROK_API_URL)%'
+    grok_model: '%env(GROK_MODEL)%'
 ```
 
 ---
@@ -289,3 +289,4 @@ npm run watch
 - [Stimulus.js](https://stimulus.hotwired.dev/)
 - [Tailwind CSS](https://tailwindcss.com/docs)
 - [OpenAI API](https://platform.openai.com/docs/api-reference)
+- [Grok API (xAI)](https://docs.x.ai/api)
