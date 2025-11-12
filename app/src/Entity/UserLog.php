@@ -16,6 +16,10 @@ class UserLog
     #[ORM\Column(length: 255)]
     private ?string $derniereConnection = null;
 
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'userLog')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $utilisateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class UserLog
     public function setDerniereConnection(string $derniereConnection): static
     {
         $this->derniereConnection = $derniereConnection;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

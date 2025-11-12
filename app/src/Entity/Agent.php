@@ -38,11 +38,26 @@ class Agent
      * @var Collection<int, Conversation>
      */
     #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'agent')]
-    private Collection $agent;
+    private Collection $conversations;
+
+    /**
+     * @var Collection<int, Matiere>
+     */
+    #[ORM\OneToMany(targetEntity: Matiere::class, mappedBy: 'agent')]
+    private Collection $matieres;
+
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'agents')]
+    #[ORM\JoinTable(name: 'utiliser')]
+    private Collection $utilisateurs;
 
     public function __construct()
     {
-        $this->agent = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->matieres = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,29 +140,82 @@ class Agent
     /**
      * @return Collection<int, Conversation>
      */
-    public function getAgent(): Collection
+    public function getConversations(): Collection
     {
-        return $this->agent;
+        return $this->conversations;
     }
 
-    public function addAgent(Conversation $agent): static
+    public function addConversation(Conversation $conversation): static
     {
-        if (!$this->agent->contains($agent)) {
-            $this->agent->add($agent);
-            $agent->setAgent($this);
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setAgent($this);
         }
 
         return $this;
     }
 
-    public function removeAgent(Conversation $agent): static
+    public function removeConversation(Conversation $conversation): static
     {
-        if ($this->agent->removeElement($agent)) {
+        if ($this->conversations->removeElement($conversation)) {
             // set the owning side to null (unless already changed)
-            if ($agent->getAgent() === $this) {
-                $agent->setAgent(null);
+            if ($conversation->getAgent() === $this) {
+                $conversation->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Matiere>
+     */
+    public function getMatieres(): Collection
+    {
+        return $this->matieres;
+    }
+
+    public function addMatiere(Matiere $matiere): static
+    {
+        if (!$this->matieres->contains($matiere)) {
+            $this->matieres->add($matiere);
+            $matiere->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatiere(Matiere $matiere): static
+    {
+        if ($this->matieres->removeElement($matiere)) {
+            if ($matiere->getAgent() === $this) {
+                $matiere->setAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(User $utilisateur): static
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->add($utilisateur);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(User $utilisateur): static
+    {
+        $this->utilisateurs->removeElement($utilisateur);
 
         return $this;
     }

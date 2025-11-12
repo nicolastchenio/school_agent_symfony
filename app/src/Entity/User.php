@@ -30,18 +30,29 @@ class User
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $role = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $niveauEducation = null;
+    #[ORM\ManyToOne(targetEntity: NiveauScolaire::class, inversedBy: 'utilisateurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NiveauScolaire $niveauScolaire = null;
+
+    #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    private ?UserLog $userLog = null;
+
+    /**
+     * @var Collection<int, Agent>
+     */
+    #[ORM\ManyToMany(targetEntity: Agent::class, mappedBy: 'utilisateurs')]
+    private Collection $agents;
 
     /**
      * @var Collection<int, Conversation>
      */
     #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'user')]
-    private Collection $agent;
+    private Collection $conversations;
 
     public function __construct()
     {
-        $this->agent = new ArrayCollection();
+        $this->agents = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,14 +120,63 @@ class User
         return $this;
     }
 
-    public function getNiveauEducation(): ?string
+    public function getNiveauScolaire(): ?NiveauScolaire
     {
-        return $this->niveauEducation;
+        return $this->niveauScolaire;
     }
 
-    public function setNiveauEducation(string $niveauEducation): static
+    public function setNiveauScolaire(?NiveauScolaire $niveauScolaire): static
     {
-        $this->niveauEducation = $niveauEducation;
+        $this->niveauScolaire = $niveauScolaire;
+
+        return $this;
+    }
+
+    public function getUserLog(): ?UserLog
+    {
+        return $this->userLog;
+    }
+
+    public function setUserLog(?UserLog $userLog): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($userLog === null && $this->userLog !== null) {
+            $this->userLog->setUtilisateur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($userLog !== null && $userLog->getUtilisateur() !== $this) {
+            $userLog->setUtilisateur($this);
+        }
+
+        $this->userLog = $userLog;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(Agent $agent): static
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
+            $agent->addUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(Agent $agent): static
+    {
+        if ($this->agents->removeElement($agent)) {
+            $agent->removeUtilisateur($this);
+        }
 
         return $this;
     }
@@ -124,27 +184,26 @@ class User
     /**
      * @return Collection<int, Conversation>
      */
-    public function getAgent(): Collection
+    public function getConversations(): Collection
     {
-        return $this->agent;
+        return $this->conversations;
     }
 
-    public function addAgent(Conversation $agent): static
+    public function addConversation(Conversation $conversation): static
     {
-        if (!$this->agent->contains($agent)) {
-            $this->agent->add($agent);
-            $agent->setUser($this);
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAgent(Conversation $agent): static
+    public function removeConversation(Conversation $conversation): static
     {
-        if ($this->agent->removeElement($agent)) {
-            // set the owning side to null (unless already changed)
-            if ($agent->getUser() === $this) {
-                $agent->setUser(null);
+        if ($this->conversations->removeElement($conversation)) {
+            if ($conversation->getUser() === $this) {
+                $conversation->setUser(null);
             }
         }
 
