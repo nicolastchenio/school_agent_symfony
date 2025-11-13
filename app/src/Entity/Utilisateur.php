@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,6 +38,31 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
+
+    #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NiveauScolaire $niveauScolaire = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Userlog $userlog = null;
+
+    /**
+     * @var Collection<int, Conversation>
+     */
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'utilisateur')]
+    private Collection $conversations;
+
+    /**
+     * @var Collection<int, Agent>
+     */
+    #[ORM\ManyToMany(targetEntity: Agent::class, inversedBy: 'utilisateurs')]
+    private Collection $agents;
+
+    public function __construct()
+    {
+        $this->conversations = new ArrayCollection();
+        $this->agents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +165,84 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNiveauScolaire(): ?NiveauScolaire
+    {
+        return $this->niveauScolaire;
+    }
+
+    public function setNiveauScolaire(?NiveauScolaire $niveauScolaire): static
+    {
+        $this->niveauScolaire = $niveauScolaire;
+
+        return $this;
+    }
+
+    public function getUserlog(): ?Userlog
+    {
+        return $this->userlog;
+    }
+
+    public function setUserlog(?Userlog $userlog): static
+    {
+        $this->userlog = $userlog;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): static
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): static
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUtilisateur() === $this) {
+                $conversation->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Agent>
+     */
+    public function getAgents(): Collection
+    {
+        return $this->agents;
+    }
+
+    public function addAgent(Agent $agent): static
+    {
+        if (!$this->agents->contains($agent)) {
+            $this->agents->add($agent);
+        }
+
+        return $this;
+    }
+
+    public function removeAgent(Agent $agent): static
+    {
+        $this->agents->removeElement($agent);
 
         return $this;
     }

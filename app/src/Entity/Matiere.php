@@ -16,6 +16,10 @@ class Matiere
     #[ORM\Column(length: 100)]
     private ?string $nom = null;
 
+    #[ORM\ManyToOne(inversedBy: 'matieres')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Agent $agent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class Matiere
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getAgent(): ?Agent
+    {
+        return $this->agent;
+    }
+
+    public function setAgent(?Agent $agent): static
+    {
+        $this->agent = $agent;
 
         return $this;
     }
