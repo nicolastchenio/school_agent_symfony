@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Role;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -69,10 +70,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
+        // Ajoute automatiquement ROLE_ETUDIANT si aucun rôle défini
+        $roles = $this->roles ?: [Role::ETUDIANT->value];
         return array_unique($roles);
     }
 
@@ -81,8 +80,12 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
-
+        // $this->roles = $roles;
+        // convertis-les enum en string
+        $this->roles = array_map(
+            fn($role) => $role instanceof Role ? $role->value : $role,
+            $roles
+        );
         return $this;
     }
 
