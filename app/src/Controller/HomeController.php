@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateur;
 use Dom\Entity;
+use App\Enum\Role;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +35,16 @@ final class HomeController extends AbstractController
         // $em->persist($user);
         // $em->flush();
         
+
+        // $user->setEmail('didier@didier.com')
+        //     ->setPassword($hasher->hashPassword($user, 'didier'))
+        //     ->setNom('didier')
+        //     ->setPrenom('didier')
+        //     ->setRoles([Role::ETUDIANT]);
+
+        // $em->persist($user);
+        // $em->flush();
+
         
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
@@ -44,7 +55,7 @@ final class HomeController extends AbstractController
     #[Route('/home/test', name: 'app_home_test')]
     public function test(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->denyAccessUnlessGranted(Role::ETUDIANT->value);
         return $this->render('home/test.html.twig', [
             'message' => 'Bonjour, vous êtes sur home test 👋',
         ]);
