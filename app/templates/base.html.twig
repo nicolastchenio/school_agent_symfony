@@ -1,17 +1,54 @@
+{# templates/base.html.twig #}
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IAgent Admin{% endblock %}</title>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: '#00f5ff',
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="bg-dark text-gray-100 min-h-screen font-sans">
+
+    <!-- Navbar futuriste -->
+    <nav class="bg-gradient-to-r from-card to-dark border-b border-neon/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ path('app_agent_index') }}" class="text-2xl font-bold text-neon">
+                <i class="fas fa-robot mr-2"></i>IAgent
+            </a>
+            <div class="space-x-6">
+                <a href="{{ path('app_agent_index') }}" class="hover:text-neon transition">Agents</a>
+                <a href="#" class="hover:text-neon transition">Conversations</a>
+                <a href="#" class="hover:text-neon transition">Utilisateurs</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
         {% block body %}{% endblock %}
-    </body>
+    </main>
+
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

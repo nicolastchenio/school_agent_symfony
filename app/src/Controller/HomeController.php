@@ -28,41 +28,41 @@ final class HomeController extends AbstractController
             $em->flush(); // On flush ici pour avoir un ID
         }
 
-        // --- Utilisateur 1 : Nicolas ---
-        $user = new Utilisateur;
-        $user->setEmail('nicolas@nicolas.com')
-             ->setPassword($hasher->hashPassword(new Utilisateur(), 'nicolas'))
-             ->setNom('Nicolas')
-             ->setPrenom('Nicolas')
-             ->setNiveauScolaire($niveau)
-             ->setRoles(['ROLE_USER']);
+        // // --- Utilisateur 1 : Nicolas ---
+        // $user = new Utilisateur;
+        // $user->setEmail('nicolas@nicolas.com')
+        //      ->setPassword($hasher->hashPassword(new Utilisateur(), 'nicolas'))
+        //      ->setNom('Nicolas')
+        //      ->setPrenom('Nicolas')
+        //      ->setNiveauScolaire($niveau)
+        //      ->setRoles(['ROLE_USER']);
 
-        $em->persist($user);
-        $em->flush();
+        // $em->persist($user);
+        // $em->flush();
 
-        // --- Utilisateur 2 : Jean ---
-        $user = new Utilisateur;
-        $user->setEmail('jean@jean.com')
-             ->setPassword($hasher->hashPassword(new Utilisateur(), 'jean'))
-             ->setNom('jean')
-             ->setPrenom('jean')
-             ->setNiveauScolaire($niveau)
-             ->setRoles(['ROLE_USER']);
+        // // --- Utilisateur 2 : Jean ---
+        // $user = new Utilisateur;
+        // $user->setEmail('jean@jean.com')
+        //      ->setPassword($hasher->hashPassword(new Utilisateur(), 'jean'))
+        //      ->setNom('jean')
+        //      ->setPrenom('jean')
+        //      ->setNiveauScolaire($niveau)
+        //      ->setRoles(['ROLE_USER']);
 
-        $em->persist($user);
-        $em->flush();
+        // $em->persist($user);
+        // $em->flush();
 
-        // --- Utilisateur 3 : Didier (étudiant) ---
-        $user = new Utilisateur;
-        $user->setEmail('didier@didier.com')
-             ->setPassword($hasher->hashPassword(new Utilisateur(), 'didier'))
-             ->setNom('didier')
-             ->setPrenom('didier')
-             ->setNiveauScolaire($niveau)
-             ->setRoles([Role::ETUDIANT->value]);
+        // // --- Utilisateur 3 : Didier (étudiant) ---
+        // $user = new Utilisateur;
+        // $user->setEmail('didier@didier.com')
+        //      ->setPassword($hasher->hashPassword(new Utilisateur(), 'didier'))
+        //      ->setNom('didier')
+        //      ->setPrenom('didier')
+        //      ->setNiveauScolaire($niveau)
+        //      ->setRoles([Role::ETUDIANT->value]);
 
-        $em->persist($user);
-        $em->flush();
+        // $em->persist($user);
+        // $em->flush();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

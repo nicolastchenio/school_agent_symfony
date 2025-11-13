@@ -1,4 +1,28 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{ form_row(form.nom, {
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+        {{ form_row(form.avatar, {
+            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+        }) }}
+        {{ form_row(form.temperature, {
+            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+        }) }}
+        {{ form_row(form.systemPrompt, {
+            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+        }) }}
+    </div>
+
+    <div>
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description, {
+            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white w-full h-32'}
+        }) }}
+    </div>
+
+    <button type="submit" class="w-full bg-neon text-dark font-bold py-3 rounded-lg hover:scale-105 transition transform">
+        {{ button_label|default('Créer l\'Agent') }}
+    </button>
 {{ form_end(form) }}

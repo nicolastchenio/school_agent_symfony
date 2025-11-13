@@ -1,42 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Agent{% endblock %}
+{% block title %}{{ agent.nom }} - IAgent{% endblock %}
 
 {% block body %}
-    <h1>Agent</h1>
+<div class="max-w-4xl mx-auto">
+    <div class="bg-card rounded-xl p-8 border border-neon/20 shadow-2xl">
+        <div class="flex justify-between items-start mb-6">
+            <h1 class="text-3xl font-bold text-neon">{{ agent.nom }}</h1>
+            <a href="{{ path('app_agent_index') }}" class="text-cyan-400 hover:underline">
+                <i class="fas fa-arrow-left mr-1"></i>Retour
+            </a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ agent.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ agent.nom }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td>{{ agent.avatar }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ agent.description }}</td>
-            </tr>
-            <tr>
-                <th>Temperature</th>
-                <td>{{ agent.temperature }}</td>
-            </tr>
-            <tr>
-                <th>SystemPrompt</th>
-                <td>{{ agent.systemPrompt }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-gray-400">Avatar</p>
+                <p class="text-neon font-mono">{{ agent.avatar }}</p>
+            </div>
+            <div>
+                <p class="text-gray-400">Température</p>
+                <p class="text-neon">{{ agent.temperature }}</p>
+            </div>
+            <div class="md:col-span-2">
+                <p class="text-gray-400">Description</p>
+                <p class="text-white mt-1">{{ agent.description }}</p>
+            </div>
+            <div class="md:col-span-2">
+                <p class="text-gray-400">System Prompt</p>
+                <pre class="bg-dark/50 p-4 rounded-lg text-cyan-300 text-sm overflow-x-auto">{{ agent.systemPrompt }}</pre>
+            </div>
+        </div>
 
-    <a href="{{ path('app_agent_index') }}">back to list</a>
-
-    <a href="{{ path('app_agent_edit', {'id': agent.id}) }}">edit</a>
-
-    {{ include('agent/_delete_form.html.twig') }}
+        <div class="mt-8 flex space-x-4">
+            <a href="{{ path('app_agent_edit', {'id': agent.idAgent}) }}" class="bg-cyan-600 text-white px-6 py-2 rounded-lg hover:bg-cyan-500 transition">
+                <i class="fas fa-edit mr-2"></i>Éditer
+            </a>
+            {{ include('agent/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}
