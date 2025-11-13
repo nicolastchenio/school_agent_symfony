@@ -1,37 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conversation index{% endblock %}
+{% block title %}Conversations - IAgent{% endblock %}
 
 {% block body %}
-    <h1>Conversation index</h1>
+<div class="mb-8 flex justify-between items-center">
+    <h1 class="text-4xl font-bold text-neon">Conversations</h1>
+    <a href="{{ path('app_conversation_new') }}" class="bg-neon text-dark px-6 py-3 rounded-lg font-semibold hover:scale-105 transition transform">
+        <i class="fas fa-plus mr-2"></i>Nouvelle Conversation
+    </a>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>CreerLe</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for conversation in conversations %}
-            <tr>
-                <td>{{ conversation.id }}</td>
-                <td>{{ conversation.titre }}</td>
-                <td>{{ conversation.creerLe ? conversation.creerLe|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_conversation_show', {'id': conversation.id}) }}">show</a>
-                    <a href="{{ path('app_conversation_edit', {'id': conversation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_conversation_new') }}">Create new</a>
+<div class="space-y-6">
+    {% for conversation in conversations %}
+        <div class="bg-card rounded-xl p-6 border border-neon/10 hover:border-neon/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon/20">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 class="text-xl font-bold text-neon">{{ conversation.titre }}</h3>
+                    <p class="text-gray-400 text-sm mt-1">
+                        <i class="fas fa-clock mr-1"></i>
+                        {{ conversation.creerLe|date('d/m/Y à H:i') }}
+                    </p>
+                    <p class="text-cyan-400 text-sm mt-2">
+                        <i class="fas fa-user mr-1"></i>
+                        {{ conversation.utilisateur ? conversation.utilisateur.email : 'Anonyme' }}
+                        &nbsp;|&nbsp;
+                        <i class="fas fa-robot mr-1"></i>
+                        {{ conversation.agent ? conversation.agent.nom : 'Aucun agent' }}
+                    </p>
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{{ path('app_conversation_show', {'id': conversation.idConversation}) }}" class="text-neon hover:underline">voir</a>
+                    <a href="{{ path('app_conversation_edit', {'id': conversation.idConversation}) }}" class="text-cyan-400 hover:underline">éditer</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-gray-500 text-center py-12">Aucune conversation trouvée.</p>
+    {% endfor %}
+</div>
 {% endblock %}

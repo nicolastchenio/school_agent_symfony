@@ -1,26 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Matiere{% endblock %}
+{% block title %}{{ matiere.nom }} - IAgent{% endblock %}
 
 {% block body %}
-    <h1>Matiere</h1>
+<div class="max-w-4xl mx-auto">
+    <div class="bg-card rounded-xl p-8 border border-neon/20 shadow-2xl">
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-neon">{{ matiere.nom }}</h1>
+                <p class="text-gray-400 text-sm mt-1">
+                    <i class="fas fa-hashtag mr-1"></i>ID: {{ matiere.idMatiere }}
+                </p>
+            </div>
+            <a href="{{ path('app_matiere_index') }}" class="text-cyan-400 hover:underline">
+                <i class="fas fa-arrow-left mr-1"></i>Retour
+            </a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ matiere.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ matiere.nom }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="mt-6">
+            <p class="text-gray-400">Agent associé</p>
+            <p class="text-cyan-400 font-mono text-lg">
+                {{ matiere.agent ? matiere.agent.nom : '—' }}
+            </p>
+        </div>
 
-    <a href="{{ path('app_matiere_index') }}">back to list</a>
-
-    <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}">edit</a>
-
-    {{ include('matiere/_delete_form.html.twig') }}
+        <div class="mt-8 flex space-x-4">
+            <a href="{{ path('app_matiere_edit', {'id': matiere.idMatiere}) }}" class="bg-cyan-600 text-white px-6 py-2 rounded-lg hover:bg-cyan-500 transition">
+                <i class="fas fa-edit mr-2"></i>Éditer
+            </a>
+            {{ include('matiere/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}

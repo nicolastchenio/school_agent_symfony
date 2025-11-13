@@ -1,35 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Matiere index{% endblock %}
+{% block title %}Matières - IAgent{% endblock %}
 
 {% block body %}
-    <h1>Matiere index</h1>
+<div class="mb-8 flex justify-between items-center">
+    <h1 class="text-4xl font-bold text-neon">Matières</h1>
+    <a href="{{ path('app_matiere_new') }}" class="bg-neon text-dark px-6 py-3 rounded-lg font-semibold hover:scale-105 transition transform">
+        <i class="fas fa-plus mr-2"></i>Nouvelle Matière
+    </a>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for matiere in matieres %}
-            <tr>
-                <td>{{ matiere.id }}</td>
-                <td>{{ matiere.nom }}</td>
-                <td>
-                    <a href="{{ path('app_matiere_show', {'id': matiere.id}) }}">show</a>
-                    <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_matiere_new') }}">Create new</a>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for matiere in matieres %}
+        <div class="bg-card rounded-xl p-6 border border-neon/10 hover:border-neon/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon/20">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-xl font-bold text-neon">{{ matiere.nom }}</h3>
+                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ matiere.idMatiere }}</span>
+            </div>
+            <div class="text-sm text-gray-400">
+                <i class="fas fa-robot mr-1"></i>
+                {{ matiere.agent ? matiere.agent.nom : 'Aucun agent' }}
+            </div>
+            <div class="mt-4 flex space-x-3">
+                <a href="{{ path('app_matiere_show', {'id': matiere.idMatiere}) }}" class="text-neon hover:underline">voir</a>
+                <a href="{{ path('app_matiere_edit', {'id': matiere.idMatiere}) }}" class="text-cyan-400 hover:underline">éditer</a>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-gray-500 col-span-full text-center py-12">Aucune matière trouvée.</p>
+    {% endfor %}
+</div>
 {% endblock %}

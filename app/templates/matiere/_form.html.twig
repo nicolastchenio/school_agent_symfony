@@ -1,4 +1,23 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+    <div>
+        {{ form_label(form.nom, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
+        {{ form_widget(form.nom, {
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+    </div>
+
+    <div>
+        {{ form_label(form.agent, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
+        {{ form_widget(form.agent, {
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'},
+            'choice_label': 'nom',
+            'placeholder': 'Sélectionner un agent'
+        }) }}
+    </div>
+
+    <button type="submit" class="w-full bg-neon text-dark font-bold py-3 rounded-lg hover:scale-105 transition transform">
+        {{ button_label|default('Créer la Matière') }}
+    </button>
+
 {{ form_end(form) }}
