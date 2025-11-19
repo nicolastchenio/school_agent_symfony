@@ -17,7 +17,7 @@ class GroqApiService
     {
         $payload = [
             "messages" => [
-                ["role" => "system", "content" => $agent->getPromptSystem()],
+                ["role" => "system", "content" => $agent->getSystemPrompt()],
                 ["role" => "user", "content" => $prompt]
             ],
             "model" => $agent->getModel(),

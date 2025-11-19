@@ -23,7 +23,7 @@
                 <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #eee;">
                     <a href="{{ path('app_ia_chat', {id: conversation.id}) }}">
                         {# Utilisation du filtre 'date' de Twig #}
-                        Conversation du {{ conversation.dateCreation|date('d-m-Y à H:i') }}
+                        Conversation du {{ conversation.creerLe|date('d-m-Y à H:i') }}
                     </a>
                     <form method="post" action="{{ path('app_ia_conversation_delete', {id: conversation.id}) }}" style="margin: 0;">
                         {# Ajout du token CSRF pour la sécurité #}

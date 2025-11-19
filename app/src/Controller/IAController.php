@@ -21,6 +21,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_ETUDIANT')] // Sécurité : toutes les routes de ce contrôleur nécessitent d'être connecté
 final class IAController extends AbstractController
 {
+
     public function __construct(
         private readonly AgentRepository $agentRepository,
         private readonly ConversationRepository $conversationRepository,
@@ -133,17 +134,12 @@ final class IAController extends AbstractController
             // Demander à l'IA
             $responseAI = $this->groqApiService->askAI($prompt, $agent);
 
-            // Créer et persister le message de l'utilisateur
-            $userMessage = (new Message())
+            // Créer et persister le message avec la question et la réponse
+            $message = (new Message())
                 ->setQuestion($prompt)
-                ->setConversation($conversation);
-            $this->entityManager->persist($userMessage);
-
-            // Créer et persister la réponse de l'IA
-            $aiMessage = (new Message())
                 ->setReponse($responseAI)
                 ->setConversation($conversation);
-            $this->entityManager->persist($aiMessage);
+            $this->entityManager->persist($message);
 
             $this->entityManager->flush();
 

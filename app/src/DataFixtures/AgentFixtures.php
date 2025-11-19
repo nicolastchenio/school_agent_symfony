@@ -18,8 +18,10 @@ class AgentFixtures extends Fixture
             $agent->setNom($faker->name);
             $agent->setAvatar($faker->imageUrl(640, 480, 'people', true));
             $agent->setDescription($faker->text);
-            $agent->setTemperature($faker->randomFloat(1, 0, 1));
-            $agent->setSystemPrompt($faker->text);
+            $agent->setSystemPrompt('Tu es un assistant IA utile et concis.');
+            $agent->setTemperature(0.7);
+            $agent->setModel('openai/gpt-oss-20b');
+            $agent->setMaxCompletionTokens(1024);
             $manager->persist($agent);
             $this->addReference('agent_' . $i, $agent);
         }
