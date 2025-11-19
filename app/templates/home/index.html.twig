@@ -1,14 +1,118 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}IAgent - Apprendre avec l'IA{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #00f5ff, #0ea5e9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+    }
+    
+    .pulse-animation {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>BIENVENU SUR LE HOME CONTROLLER </h1>
+<!-- Hero Section -->
+<div class="min-h-screen flex flex-col justify-center items-center px-6">
+    <!-- Élément décoratif -->
+    <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    
+    <div class="relative z-10 text-center max-w-4xl">
+        <!-- Logo et titre -->
+        <div class="mb-8">
+            <div class="inline-block mb-6">
+                <div class="text-7xl mb-4 animate-bounce">
+                    <i class="fas fa-brain text-neon"></i>
+                </div>
+            </div>
+            <h1 class="text-6xl font-bold mb-4">
+                <span class="gradient-text">IAgent Education</span>
+            </h1>
+            <p class="text-2xl text-gray-300 mb-4">Apprendre et réviser avec l'Intelligence Artificielle</p>
+        </div>
+        
+        <!-- Description -->
+        <div class="mb-12 space-y-4">
+            <p class="text-lg text-gray-400">
+                Une plateforme d'apprentissage intelligente qui s'adapte à votre niveau et vos besoins.
+            </p>
+            <p class="text-lg text-gray-400">
+                Discutez avec des agents IA spécialisés dans chaque matière pour améliorer vos connaissances.
+            </p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a href="{{ path('app_login') }}" class="group relative px-10 py-4 text-lg font-semibold text-dark bg-neon rounded-lg hover:bg-cyan-400 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,245,255,0.5)]">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Se connecter
+                <span class="absolute inset-0 rounded-lg border-2 border-neon opacity-0 group-hover:opacity-100 transition-opacity"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section (optional) -->
+<div class="mt-32 max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-16">
+        <span class="gradient-text">Pourquoi choisir IAgent ?</span>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="card-hover bg-card/50 border border-neon/20 rounded-xl p-8 backdrop-blur">
+            <div class="text-4xl mb-4 text-neon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Apprentissage Adaptatif</h3>
+            <p class="text-gray-400">
+                Les agents IA s'adaptent à votre niveau et votre rythme d'apprentissage.
+            </p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="card-hover bg-card/50 border border-neon/20 rounded-xl p-8 backdrop-blur">
+            <div class="text-4xl mb-4 text-neon">
+                <i class="fas fa-book"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Plusieurs Matières</h3>
+            <p class="text-gray-400">
+                Mathématiques, Sciences, Histoire, Langues... Tout ce qu'il faut pour réussir.
+            </p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="card-hover bg-card/50 border border-neon/20 rounded-xl p-8 backdrop-blur">
+            <div class="text-4xl mb-4 text-neon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Conversation 24/7</h3>
+            <p class="text-gray-400">
+                Posez vos questions à tout moment et obtenez des réponses personnalisées.
+            </p>
+        </div>
+    </div>
 </div>
 {% endblock %}
