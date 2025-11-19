@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Message{% endblock %}
+{% block title %}Nouveau Message{% endblock %}
 
 {% block body %}
-    <h1>Create new Message</h1>
+<div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold text-neon mb-8">
+        {{ block('title') }}
+    </h1>
 
-    {{ include('message/_form.html.twig') }}
+    {{ include('message/_form.html.twig', {
+        'button_label': 'Créer'
+    }) }}
 
-    <a href="{{ path('app_message_index') }}">back to list</a>
+    <a href="{{ path('app_message_index') }}" class="text-cyan-400 hover:underline mt-6 inline-block">
+        <i class="fas fa-arrow-left mr-1"></i>Retour à la liste
+    </a>
+</div>
 {% endblock %}

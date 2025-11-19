@@ -1,4 +1,30 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+
+    <div>
+        {{ form_label(form.question, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
+        {{ form_widget(form.question, {
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+    </div>
+
+    <div>
+        {{ form_label(form.reponse, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
+        {{ form_widget(form.reponse, {
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+    </div>
+
+    <div>
+        {{ form_label(form.conversation, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
+        {{ form_widget(form.conversation, {
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'},
+            'choice_label': 'id',
+            'placeholder': 'Sélectionner une conversation'
+        }) }}
+    </div>
+
+    <button type="submit" class="w-full bg-neon text-dark font-bold py-3 rounded-lg hover:scale-105 transition transform">
+        {{ button_label|default('Créer le Message') }}
+    </button>
+
 {{ form_end(form) }}

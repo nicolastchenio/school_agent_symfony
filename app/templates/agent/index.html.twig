@@ -15,7 +15,7 @@
         <div class="bg-card rounded-xl p-6 border border-neon/10 hover:border-neon/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon/20">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="text-xl font-bold text-neon">{{ agent.nom }}</h3>
-                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ agent.idAgent }}</span>
+                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ agent.id }}</span>
             </div>
             <p class="text-gray-400 text-sm mb-4 line-clamp-2">{{ agent.description }}</p>
             <div class="flex justify-between text-sm">
@@ -23,8 +23,8 @@
                 <span class="text-gray-500">Prompt: {{ agent.systemPrompt|length > 20 ? agent.systemPrompt|slice(0,20)~'...' : agent.systemPrompt }}</span>
             </div>
             <div class="mt-4 flex space-x-2">
-                <a href="{{ path('app_agent_show', {'id': agent.idAgent}) }}" class="text-neon hover:underline">voir</a>
-                <a href="{{ path('app_agent_edit', {'id': agent.idAgent}) }}" class="text-cyan-400 hover:underline">éditer</a>
+                <a href="{{ path('app_agent_show', {'id': agent.id}) }}" class="text-neon hover:underline">voir</a>
+                <a href="{{ path('app_agent_edit', {'id': agent.id}) }}" class="text-cyan-400 hover:underline">éditer</a>
             </div>
         </div>
     {% else %}

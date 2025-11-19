@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\DBAL\Types\Types;
+
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
 {
@@ -13,40 +15,60 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $question = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $reponse = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $sender = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Conversation $conversation = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getQuestion(): ?string
+    public function getContent(): ?string
     {
-        return $this->question;
+        return $this->content;
     }
 
-    public function setQuestion(string $question): static
+    public function setContent(string $content): static
     {
-        $this->question = $question;
+        $this->content = $content;
 
         return $this;
     }
 
-    public function getReponse(): ?string
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->reponse;
+        return $this->createdAt;
     }
 
-    public function setReponse(string $reponse): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->reponse = $reponse;
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSender(): ?string
+    {
+        return $this->sender;
+    }
+
+    public function setSender(string $sender): static
+    {
+        $this->sender = $sender;
 
         return $this;
     }

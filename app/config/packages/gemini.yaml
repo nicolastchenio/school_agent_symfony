@@ -1,0 +1,11 @@
+parameters:
+    env(GEMINI_API_KEY): ''
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Gemini\Client:
+        arguments:
+            - '%env(GEMINI_API_KEY)%'
