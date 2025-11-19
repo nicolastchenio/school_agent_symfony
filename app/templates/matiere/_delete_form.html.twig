@@ -1,6 +1,6 @@
-<form method="post" action="{{ path('app_matiere_delete', {'id': matiere.idMatiere}) }}" 
+<form method="post" action="{{ path('app_matiere_delete', {'id': matiere.id}) }}" 
       onsubmit="return confirm('Supprimer cette matière ?');" class="inline">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matiere.idMatiere) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matiere.id) }}">
     <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-500 transition">
         <i class="fas fa-trash mr-2"></i>Supprimer
     </button>

@@ -1,6 +1,6 @@
-<form method="post" action="{{ path('app_conversation_delete', {'id': conversation.idConversation}) }}" 
+<form method="post" action="{{ path('app_conversation_delete', {'id': conversation.id}) }}" 
       onsubmit="return confirm('Supprimer cette conversation ?');" class="inline">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.idConversation) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conversation.id) }}">
     <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-500 transition">
         <i class="fas fa-trash mr-2"></i>Supprimer
     </button>
