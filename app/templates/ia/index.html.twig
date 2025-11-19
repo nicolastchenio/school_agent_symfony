@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choisir un Assistant IA{% endblock %}
+
+{% block body %}
+    <h1>Choisir un Assistant IA</h1>
+
+    <p>Sélectionnez l'assistant avec lequel vous souhaitez converser :</p>
+
+    {% if agents is not empty %}
+        <ul>
+        {% for agent in agents %}
+            <li>
+                {# Utilisation de la fonction path() pour générer l'URL dynamiquement #}
+                <a href="{{ path('app_ia_conversations', {id: agent.id}) }}">
+                    {{ agent.nom }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun assistant ne vous est assigné pour le moment.</p>
+    {% endif %}
+{% endblock %}
