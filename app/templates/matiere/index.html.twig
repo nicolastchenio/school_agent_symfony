@@ -15,15 +15,15 @@
         <div class="bg-card rounded-xl p-6 border border-neon/10 hover:border-neon/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon/20">
             <div class="flex justify-between items-start mb-4">
                 <h3 class="text-xl font-bold text-neon">{{ matiere.nom }}</h3>
-                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ matiere.idMatiere }}</span>
+                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ matiere.id}}</span>
             </div>
             <div class="text-sm text-gray-400">
                 <i class="fas fa-robot mr-1"></i>
                 {{ matiere.agent ? matiere.agent.nom : 'Aucun agent' }}
             </div>
             <div class="mt-4 flex space-x-3">
-                <a href="{{ path('app_matiere_show', {'id': matiere.idMatiere}) }}" class="text-neon hover:underline">voir</a>
-                <a href="{{ path('app_matiere_edit', {'id': matiere.idMatiere}) }}" class="text-cyan-400 hover:underline">éditer</a>
+                <a href="{{ path('app_matiere_show', {'id': matiere.id}) }}" class="text-neon hover:underline">voir</a>
+                <a href="{{ path('app_matiere_edit', {'id': matiere.id}) }}" class="text-cyan-400 hover:underline">éditer</a>
             </div>
         </div>
     {% else %}
