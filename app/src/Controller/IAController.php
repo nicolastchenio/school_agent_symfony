@@ -11,7 +11,7 @@ use App\Repository\AgentRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ConversationRepository;
-use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Http\Attribute\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,6 +40,13 @@ final class IAController extends AbstractController
     {
         /** @var Utilisateur $user */
         $user = $this->getUser();
+
+        // Sécurité : s'assurer qu'un utilisateur est bien connecté
+        if (!$user) {
+            // Normalement, la sécurité de Symfony devrait déjà empêcher ça.
+            // C'est une double sécurité.
+            return $this->redirectToRoute('app_login');
+        }
 
         // On récupère les agents directement depuis l'utilisateur
         $agents = $user->getAgents();
