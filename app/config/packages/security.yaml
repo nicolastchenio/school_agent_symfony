@@ -25,11 +25,12 @@ security:
                 csrf_token_id: authenticate
                 username_parameter: email
                 password_parameter: password
+                default_target_path: app_home
+                target_path_parameter: _target_path
 
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_home
 
             remember_me:
                 secret: '%kernel.secret%'

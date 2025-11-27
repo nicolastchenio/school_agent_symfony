@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - IAgent{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #00f5ff, #0ea5e9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .input-focus {
+        transition: all 0.3s ease;
+    }
+    
+    .input-focus:focus {
+        border-color: #00f5ff;
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+    }
+    
+    .btn-glow:hover {
+        box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .form-error {
+        border-color: #ef4444 !important;
+    }
+
+    .error-message {
+        color: #fca5a5;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="min-h-screen flex items-center justify-center px-6 py-12">
+    <!-- Éléments décoratifs -->
+    <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 w-full max-w-2xl">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <div class="inline-block mb-4 text-5xl text-neon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-2">
+                <span class="gradient-text">Créer un compte</span>
+            </h1>
+            <p class="text-gray-400">Rejoignez IAgent et commencez à apprendre avec l'IA</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form method="post" novalidate class="space-y-6 bg-card/40 border border-neon/20 rounded-xl p-8 backdrop-blur">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Prénom -->
+                <div>
+                    <label for="{{ form.prenom.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                        <i class="fas fa-user mr-2 text-neon"></i>{{ form.prenom.vars.label }}
+                    </label>
+                    {{ form_widget(form.prenom, {
+                        'attr': {
+                            'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.prenom.vars.errors|length > 0 ? ' border-red-500' : '')
+                        }
+                    }) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
+
+                <!-- Nom -->
+                <div>
+                    <label for="{{ form.nom.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                        <i class="fas fa-user mr-2 text-neon"></i>{{ form.nom.vars.label }}
+                    </label>
+                    {{ form_widget(form.nom, {
+                        'attr': {
+                            'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.nom.vars.errors|length > 0 ? ' border-red-500' : '')
+                        }
+                    }) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="{{ form.email.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                    <i class="fas fa-envelope mr-2 text-neon"></i>{{ form.email.vars.label }}
+                </label>
+                {{ form_widget(form.email, {
+                    'attr': {
+                        'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.email.vars.errors|length > 0 ? ' border-red-500' : '')
+                    }
+                }) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <!-- Niveau Scolaire -->
+            <div>
+                <label for="{{ form.niveauScolaire.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                    <i class="fas fa-book mr-2 text-neon"></i>{{ form.niveauScolaire.vars.label }}
+                </label>
+                {{ form_widget(form.niveauScolaire, {
+                    'attr': {
+                        'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.niveauScolaire.vars.errors|length > 0 ? ' border-red-500' : '')
+                    }
+                }) }}
+                {{ form_errors(form.niveauScolaire) }}
+            </div>
+
+            <!-- Password -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="{{ form.password.first.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                        <i class="fas fa-lock mr-2 text-neon"></i>{{ form.password.first.vars.label }}
+                    </label>
+                    {{ form_widget(form.password.first, {
+                        'attr': {
+                            'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.password.first.vars.errors|length > 0 ? ' border-red-500' : '')
+                        }
+                    }) }}
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="{{ form.password.second.vars.id }}" class="block text-sm font-semibold mb-2 text-gray-200">
+                        <i class="fas fa-lock mr-2 text-neon"></i>{{ form.password.second.vars.label }}
+                    </label>
+                    {{ form_widget(form.password.second, {
+                        'attr': {
+                            'class': 'input-focus w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none' ~ (form.password.second.vars.errors|length > 0 ? ' border-red-500' : '')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <!-- Password Error Messages -->
+            {% if form.password.vars.errors|length > 0 %}
+                <div class="bg-red-500/10 border border-red-500/50 rounded-lg p-4">
+                    {{ form_errors(form.password) }}
+                </div>
+            {% endif %}
+
+            <!-- Password Requirements Info -->
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-sm text-gray-300">
+                <p class="font-semibold mb-2">
+                    <i class="fas fa-info-circle mr-2 text-blue-400"></i>Exigences du mot de passe :
+                </p>
+                <ul class="space-y-1 ml-6">
+                    <li class="list-disc">Minimum 8 caractères</li>
+                    <li class="list-disc">Au moins une lettre majuscule (A-Z)</li>
+                    <li class="list-disc">Au moins une lettre minuscule (a-z)</li>
+                    <li class="list-disc">Au moins un chiffre (0-9)</li>
+                </ul>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button type="submit" class="btn-glow flex-1 px-6 py-3 bg-neon text-dark font-bold rounded-lg hover:bg-cyan-400 transition duration-300">
+                    <i class="fas fa-user-plus mr-2"></i>S'inscrire
+                </button>
+                <a href="{{ path('app_login') }}" class="flex-1 px-6 py-3 bg-gray-600/30 hover:bg-gray-600/50 border border-gray-600 rounded-lg text-center font-semibold text-gray-300 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Retour à la connexion
+                </a>
+            </div>
+
+            {{ form_end(form) }}
+        </form>
+
+        <!-- Login Link -->
+        <div class="text-center mt-8">
+            <p class="text-gray-400">
+                Vous avez déjà un compte ?
+                <a href="{{ path('app_login') }}" class="text-neon hover:text-cyan-400 font-semibold transition">
+                    Se connecter ici
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

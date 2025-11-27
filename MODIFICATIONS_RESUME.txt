@@ -1,0 +1,85 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                      RÉSUMÉ DES MODIFICATIONS                               ║
+║                     Inscription + Redesign Login                             ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+1. FICHIERS CRÉÉS
+─────────────────────────────────────────────────────────────────────────────
+
+app/src/Form/RegistrationType.php
+   Classe Symfony Form pour l'inscription
+   - 6 champs (prénom, nom, email, niveau scolaire, password x2)
+   - Validations complètes 
+   - Mensages d'erreur 
+   
+app/templates/security/register.html.twig
+   Template formulaire d'inscription
+   - Design Tailwind CSS 
+   - Grille responsive 
+   - Affichage erreurs de validation
+   - Info exigences mot de passe
+
+
+2. FICHIERS MODIFIÉS
+─────────────────────────────────────────────────────────────────────────────
+
+app/src/Controller/SecurityController.php
+   ➕ AJOUTÉ: nouvelle méthode public function register()
+   ➕ AJOUTÉ: imports (Request, EntityManagerInterface, UserPasswordHasherInterface)
+   ➕ AJOUTÉ: logique création utilisateur, hachage mot de passe, persistance
+   - Action sur /register (GET et POST)
+   - Flash message succès après création
+   - Redirection vers login
+
+app/templates/security/login.html.twig
+   ❌ SUPPRIMÉ: ancien design Bootstrap basique
+   ➕ AJOUTÉ: Tailwind CSS dark mode
+   ➕ AJOUTÉ: dégradés, animations, icônes Font Awesome
+   ➕ AJOUTÉ: affichage flash messages
+   ➕ AJOUTÉ: lien vers page d'inscription
+   - Form visuelle améliorée
+   - Messages d'erreur stylisés
+
+app/templates/home/index.html.twig
+   ➕ AJOUTÉ: bouton "S'inscrire" à côté du bouton "Se connecter"
+   - Même style et animations
+   - Lien vers /register
+
+
+3. CHANGEMENTS APPORTÉS DÉTAILLÉS
+─────────────────────────────────────────────────────────────────────────────
+CONTRÔLEUR (SecurityController.php)
+
+   Nouvelle route:
+   ────────────────
+   GET  /register   → Affiche le formulaire
+   POST /register   → Traite la soumission
+   
+   Logique:
+   1. Créer nouvelle entité Utilisateur
+   2. Créer le formulaire avec RegistrationType
+   3. Traiter la soumission (handleRequest)
+   4. Si valide:
+      - Hash le mot de passe
+      - Persister en BDD (doctrine)
+      - Afficher flash message
+      - Rediriger vers login
+   5. Si invalide:
+      - Réafficher le formulaire avec erreurs
+
+
+
+PAGE D'ACCUEIL
+
+   Avant:
+   -----
+   [Se connecter]
+   
+   Après:
+   ------
+   [Se connecter]  [S'inscrire]
+   
+   Deux boutons:
+   - Primaire: Se connecter 
+   - Secondaire: S'inscrire 
+
