@@ -3,22 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\Agent;
-use App\Entity\Conversation;
 use App\Entity\Message;
 use App\Entity\Utilisateur;
-use App\Repository\AgentRepository;
-use App\Repository\ConversationRepository;
-use App\Repository\MessageRepository;
+use App\Entity\Conversation;
 use App\Service\GroqApiService;
+use App\Repository\AgentRepository;
+use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ConversationRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/ia')]
-#[IsGranted('ROLE_ETUDIANT')] // Sécurité : toutes les routes de ce contrôleur nécessitent d'être connecté
+#[Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_ETUDIANT')")]// Sécurité : toutes les routes de ce contrôleur nécessitent d'être connecté
 final class IAController extends AbstractController
 {
 
