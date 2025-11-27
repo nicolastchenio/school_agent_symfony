@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\NiveauScolaire;
 use App\Form\NiveauScolaireType;
-use App\Repository\NiveauScolaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\NiveauScolaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/niveau/scolaire')]
+#[IsGranted('ROLE_ADMIN')]
 final class NiveauScolaireController extends AbstractController
 {
     #[Route(name: 'app_niveau_scolaire_index', methods: ['GET'])]

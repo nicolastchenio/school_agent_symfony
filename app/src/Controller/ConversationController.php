@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Form\ConversationType;
-use App\Repository\ConversationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ConversationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/conversation')]
+#[IsGranted('ROLE_ADMIN')]
 final class ConversationController extends AbstractController
 {
     #[Route(name: 'app_conversation_index', methods: ['GET'])]
