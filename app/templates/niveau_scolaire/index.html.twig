@@ -3,33 +3,27 @@
 {% block title %}NiveauScolaire index{% endblock %}
 
 {% block body %}
-    <h1>NiveauScolaire index</h1>
+<div class="mb-8 flex justify-between items-center">
+    <h1 class="text-4xl font-bold text-neon">Niveaux Scolaires</h1>
+    <a href="{{ path('app_niveau_scolaire_new') }}" class="bg-neon text-dark px-6 py-3 rounded-lg font-semibold hover:scale-105 transition transform">
+        <i class="fas fa-plus mr-2"></i>Nouveau Niveau
+    </a>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Niveau</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for niveau_scolaire in niveau_scolaires %}
-            <tr>
-                <td>{{ niveau_scolaire.id }}</td>
-                <td>{{ niveau_scolaire.niveau }}</td>
-                <td>
-                    <a href="{{ path('app_niveau_scolaire_show', {'id': niveau_scolaire.id}) }}">show</a>
-                    <a href="{{ path('app_niveau_scolaire_edit', {'id': niveau_scolaire.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_niveau_scolaire_new') }}">Create new</a>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for niveau_scolaire in niveau_scolaires %}
+        <div class="bg-card rounded-xl p-6 border border-neon/10 hover:border-neon/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon/20">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-xl font-bold text-neon">{{ niveau_scolaire.niveau }}</h3>
+                <span class="text-xs bg-neon/20 text-neon px-2 py-1 rounded">ID: {{ niveau_scolaire.id}}</span>
+            </div>
+            <div class="mt-4 flex space-x-3">
+                <a href="{{ path('app_niveau_scolaire_show', {'id': niveau_scolaire.id}) }}" class="text-neon hover:underline">voir</a>
+                <a href="{{ path('app_niveau_scolaire_edit', {'id': niveau_scolaire.id}) }}" class="text-cyan-400 hover:underline">éditer</a>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-gray-500 col-span-full text-center py-12">Aucun niveau scolaire trouvé.</p>
+    {% endfor %}
+</div>
 {% endblock %}
