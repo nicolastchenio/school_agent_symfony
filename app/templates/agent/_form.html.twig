@@ -1,28 +1,51 @@
 {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    {# Affiche les erreurs globales du formulaire #}
+    {{ form_errors(form) }}
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {{ form_row(form.nom, {
             'label_attr': {'class': 'text-neon font-medium'},
-            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
         }) }}
         {{ form_row(form.avatar, {
-            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
         }) }}
         {{ form_row(form.temperature, {
-            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
         }) }}
         {{ form_row(form.systemPrompt, {
-            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white'}
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+         {{ form_row(form.model, {
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+        {{ form_row(form.maxCompletionTokens, {
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
         }) }}
     </div>
 
-    <div>
-        {{ form_label(form.description) }}
+    <div class="md:col-span-2">
+        {{ form_label(form.description, null, {'label_attr': {'class': 'text-neon font-medium'}}) }}
         {{ form_widget(form.description, {
-            'attr': {'class': 'bg-card border border-neon/30 rounded-lg px-4 py-3 text-white w-full h-32'}
+            'attr': {'class': 'w-full h-32 bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
+        }) }}
+        {# Affiche les erreurs pour ce champ spécifique #}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="md:col-span-2">
+         {{ form_row(form.utilisateurs, {
+            'label_attr': {'class': 'text-neon font-medium'},
+            'attr': {'class': 'w-full bg-card border border-neon/30 rounded-lg px-4 py-3 text-white focus:border-neon focus:ring-neon'}
         }) }}
     </div>
 
     <button type="submit" class="w-full bg-neon text-dark font-bold py-3 rounded-lg hover:scale-105 transition transform">
-        {{ button_label|default('Créer l\'Agent') }}
+        {{ button_label|default('Enregistrer') }}
     </button>
 {{ form_end(form) }}

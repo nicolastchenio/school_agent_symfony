@@ -19,10 +19,13 @@ class AgentType extends AbstractType
             ->add('description')
             ->add('temperature')
             ->add('systemPrompt')
+            ->add('model') // Ajout du champ model
+            ->add('maxCompletionTokens') // Ajout du champ maxCompletionTokens
             ->add('utilisateurs', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
                 'multiple' => true,
+                'by_reference' => false, // Assure que l'adder/remover est appelé
             ])
         ;
     }
