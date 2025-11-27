@@ -26,3 +26,9 @@ commande pour lancer les fixtures :
 php bin/console doctrine:fixtures
 ```
 
+# iaControler #
+rajouter dans le fichier ".env" le code suivant :
+```
+# app/.env
+GROQ_API_KEY="votre_cle_api_groq_ici"
+```

@@ -48,6 +48,12 @@ class Agent
     #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'agent')]
     private Collection $conversations;
 
+    #[ORM\Column(length: 255)]
+    private ?string $model = null;
+
+    #[ORM\Column]
+    private ?int $maxCompletionTokens = null;
+
     public function __construct()
     {
         $this->utilisateurs = new ArrayCollection();
@@ -203,6 +209,30 @@ class Agent
                 $conversation->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    public function setModel(string $model): static
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function getMaxCompletionTokens(): ?int
+    {
+        return $this->maxCompletionTokens;
+    }
+
+    public function setMaxCompletionTokens(int $maxCompletionTokens): static
+    {
+        $this->maxCompletionTokens = $maxCompletionTokens;
 
         return $this;
     }

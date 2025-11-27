@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat avec {{ agent.nom }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# Vous pouvez mettre le style dans un fichier CSS séparé plus tard #}
+    <style>
+        .chat-container { max-width: 800px; margin: 20px auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; }
+        .message { margin-bottom: 15px; padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.4; }
+        .user-message { background-color: #007bff; color: white; margin-left: auto; text-align: left; }
+        .ai-message { background-color: #e9e9eb; color: #333; margin-right: auto; text-align: left; }
+        .message p { margin: 0; }
+        .message .author { font-weight: bold; margin-bottom: 5px; font-size: 0.8em; opacity: 0.8; }
+        textarea { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 10px; }
+        button { width: 100%; padding: 10px 20px; border: none; background-color: #007bff; color: white; border-radius: 8px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #0056b3; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="chat-container">
+        <p><a href="{{ path('app_ia_conversations', {id: agent.id}) }}">&larr; Retour à l'historique de "{{ agent.nom }}"</a></p>
+        <h1 style="text-align: center;">{{ conversation.titre }}</h1>
+        <hr>
+
+        <div class="messages-history">
+            {% if messages is not empty %}
+                {% for message in messages %}
+                    <div class="message user-message">
+                        <p class="author">Vous</p>
+                        {# Le filtre nl2br convertit les sauts de ligne en <br> #}
+                        <p>{{ message.question|nl2br }}</p>
+                    </div>
+                    {% if message.reponse is not empty %}
+                        <div class="message ai-message">
+                            <p class="author">{{ agent.nom }}</p>
+                            <p>{{ message.reponse|nl2br }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center;">C'est le début de votre conversation. Posez votre première question !</p>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        {# L'action du formulaire est dynamique : elle pointe vers la bonne route #}
+        {# que la conversation soit nouvelle ou existante. #}
+        {% set form_action = isNew ? path('app_ia_chat', {'agentId': agent.id}) : path('app_ia_chat', {'id': conversation.id}) %}
+        <form method="post" action="{{ form_action }}">
+            <textarea name="prompt" rows="4" placeholder="Votre message..." required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+{% endblock %}
