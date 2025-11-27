@@ -34,13 +34,15 @@
     <!-- Navbar futuriste -->
     <nav class="bg-gradient-to-r from-card to-dark border-b border-neon/20">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ path('app_agent_index') }}" class="text-2xl font-bold text-neon">
+            <a href="{{ path('app_home') }}" class="text-2xl font-bold text-neon">
                 <i class="fas fa-robot mr-2"></i>IAgent
             </a>
             <div class="space-x-6">
                 <a href="{{ path('app_agent_index') }}" class="hover:text-neon transition">Agents</a>
-                <a href="#" class="hover:text-neon transition">Conversations</a>
-                <a href="#" class="hover:text-neon transition">Utilisateurs</a>
+                <a href="{{ path('app_conversation_index') }}" class="hover:text-neon transition">Conversations</a>
+                <a href="{{ path('app_matiere_index') }}" class="hover:text-neon transition">Matières</a>
+                <a href="{{ path('app_niveau_scolaire_index') }}" class="hover:text-neon transition">Niveaux</a>
+                <a href="{{ path('app_ia_index') }}" class="hover:text-neon transition">IA</a>
             </div>
         </div>
     </nav>
